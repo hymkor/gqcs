@@ -25,3 +25,23 @@ all:
 	$(GO) fmt ./...
 	$(SET) "CGO_ENABLED=0" && $(GO) build $(GOOPT)
 
+_dist:
+	$(MAKE) all
+	zip -9 $(NAME)-$(VERSION)-$(GOOS)-$(GOARCH).zip $(NAME)$(EXE)
+
+dist:
+	$(SET) "GOOS=linux"   && $(SET) "GOARCH=386"   && $(MAKE) _dist
+	$(SET) "GOOS=linux"   && $(SET) "GOARCH=amd64" && $(MAKE) _dist
+	$(SET) "GOOS=windows" && $(SET) "GOARCH=386"   && $(MAKE) _dist
+	$(SET) "GOOS=windows" && $(SET) "GOARCH=amd64" && $(MAKE) _dist
+
+clean:
+	$(DEL) *.zip $(NAME)$(EXE)
+
+manifest:
+	make-scoop-manifest *-windows-*.zip > $(NAME).json
+
+release:
+	goawk -f latest-notes.awk release_note_*.md | gh release create -d --notes-file - -t $(VERSION) $(VERSION) $(wildcard $(NAME)-$(VERSION)-*.zip)
+
+.PHONY: all test dist _dist clean manifest release
