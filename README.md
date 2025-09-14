@@ -26,6 +26,30 @@ $ gqcs mysql user:password@/database
 - The demo data comes from the [Japanese postal code CSV dataset][JapanPost], imported into SQLite3.
 - I support Mobile Suit Gundam [GQuuuuuuX] and Microsoft [Access].
 
+Install
+-------
+
+Download the binary package from [Releases](https://github.com/hymkor/gqcs/releases) and extract the executable.
+
+### via Scoop-installer (Windows)
+
+```
+scoop install https://raw.githubusercontent.com/hymkor/gqcs/master/gqcs.json
+```
+
+or
+
+```
+scoop bucket add hymkor https://github.com/hymkor/scoop-bucket
+scoop install gqcs
+```
+
+### Installing via Go
+
+```
+go install github.com/hymkor/gqcs@latest
+```
+
 Author
 ------
 
