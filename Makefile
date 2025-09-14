@@ -44,4 +44,7 @@ manifest:
 release:
 	goawk -f latest-notes.awk release_note_*.md | gh release create -d --notes-file - -t $(VERSION) $(VERSION) $(wildcard $(NAME)-$(VERSION)-*.zip)
 
-.PHONY: all test dist _dist clean manifest release
+docs:
+	minipage README.md > "docs/index.html"
+
+.PHONY: all test dist _dist clean manifest release docs
