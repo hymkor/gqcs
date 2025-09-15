@@ -8,6 +8,8 @@ import (
 	"os"
 	"strings"
 
+	"github.com/mattn/go-colorable"
+
 	"github.com/nyaosorg/go-box/v2"
 
 	"github.com/hymkor/sqlbless/dialect"
@@ -72,6 +74,10 @@ func listTable(ctx context.Context, d *dialect.Entry, conn *sql.DB) ([]string, e
 }
 
 func mains(args []string) (lastErr error) {
+	disabler := colorable.EnableColorsStdout(nil)
+	defer disabler()
+	terminal := colorable.NewColorableStdout()
+
 	dbg, err := os.Create(*flagDebugLog)
 	if err != nil {
 		return err
@@ -126,8 +132,8 @@ func mains(args []string) (lastErr error) {
 		},
 	}
 	for {
-		fmt.Fprintln(os.Stderr, "Select a table:")
-		table, err := box.SelectStringContext(ctx, tables, false, os.Stdout)
+		fmt.Fprintln(terminal, "Select a table:")
+		table, err := box.SelectStringContext(ctx, tables, false, terminal)
 		fmt.Println()
 		if err != nil {
 			return err
@@ -135,12 +141,12 @@ func mains(args []string) (lastErr error) {
 		if len(table) < 1 {
 			return nil
 		}
-		err = editor.Edit(ctx, `"`+table[0]+`"`, os.Stdout)
+		err = editor.Edit(ctx, `"`+table[0]+`"`, terminal)
 		if tx == nil {
 			continue
 		}
 		if err != nil {
-			fmt.Fprintln(os.Stderr, "Transaction rolled back.")
+			fmt.Fprintln(terminal, "Transaction rolled back.")
 			fmt.Fprintln(dbg, "Transaction rolled back.")
 			tx.Rollback()
 			return err
