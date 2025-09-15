@@ -1,3 +1,4 @@
+- Fix: Escape sequence was not enabled on Windows.
 
 v0.0.1
 ======
