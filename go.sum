@@ -27,8 +27,8 @@ github.com/hymkor/go-cursorposition v0.0.3 h1:XzZpoNexvSZbWxzgvCsJKH7py/npcZEDvI
 github.com/hymkor/go-cursorposition v0.0.3/go.mod h1:h3M3Z39RBzNKKaUkSmhvCUUF4xRA5ueeEVUFQT8qBKw=
 github.com/hymkor/go-windows1x-virtualterminal v0.5.0 h1:UIMMK09QSLCdM9Up4ny6qmBOrrn3rozxIRPfEUhxmTo=
 github.com/hymkor/go-windows1x-virtualterminal v0.5.0/go.mod h1:M/X0FJL+4wQtrm03JnL9gVyvhyscJk3t+ItZ29sla2g=
-github.com/hymkor/sqlbless v0.20.0 h1:BIL4CYSJjs4EFByduLk6yJYlIpb4LmKDpHUUlMOKCZ4=
-github.com/hymkor/sqlbless v0.20.0/go.mod h1:XGmYi9yhUJdwV6xuy7AmM+5IK2BpP/dJ3/dlQMveepQ=
+github.com/hymkor/sqlbless v0.21.0 h1:dBLQAv86aKHPv1NpARSnEW1WROlx4if43nqCoZm1Wmw=
+github.com/hymkor/sqlbless v0.21.0/go.mod h1:C/X3Vz1GT3flGipRBpaVdPsWu277cIYXZzNyD3dviRY=
 github.com/hymkor/sxencode-go v0.3.0 h1:IfsgPuLLJptw3fczZKLSZjtT4cJ0qfPnFMEWnaG9yuU=
 github.com/hymkor/sxencode-go v0.3.0/go.mod h1:zdsmILW2sJbtydTaB7lwTqnl63XCTxRjTqDDZBA5hV0=
 github.com/kylelemons/godebug v1.1.0 h1:RPNrshWIDI6G2gRW9EHilWtl7Z6Sb1BR0xunSBf0SNc=
