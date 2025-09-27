@@ -124,7 +124,18 @@ func mains(args []string) (lastErr error) {
 			}
 			fmt.Fprintln(dbg, sql)
 			result, err := tx.ExecContext(ctx, sql, args...)
+			if err == nil {
+				var count int64
+				if count, err = result.RowsAffected(); err == nil {
+					if count < 1 {
+						err = fmt.Errorf("no affected rows:\n%s", sql)
+					} else if count > 1 {
+						err = fmt.Errorf("too many affected rows(%d):\n%s", count, sql)
+					}
+				}
+			}
 			if err != nil {
+				fmt.Fprintln(terminal, err.Error())
 				fmt.Fprintln(dbg, err.Error())
 				err = fmt.Errorf("%s\n%w", sql, err)
 			}
