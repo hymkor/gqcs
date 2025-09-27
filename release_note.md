@@ -1,3 +1,7 @@
+v0.0.3
+======
+Sep 28, 2025
+
 - Update based SQL-Bless to v0.21.0
     - Changed to use placeholders for value specification
     - Modified SQLite3 datetime column updates to normalize values in `WHERE` clauses according to column type:
