@@ -113,8 +113,8 @@ func mains(args []string) (lastErr error) {
 			Comma:       ',',
 			Null:        "\u2400",
 		},
-		TypeToConv: d.Dialect.TypeToConv,
-		Query:      conn.QueryContext,
+		Entry: d.Dialect,
+		Query: conn.QueryContext,
 		Exec: func(ctx context.Context, sql string, args ...any) (sql.Result, error) {
 			if tx == nil {
 				var err error
