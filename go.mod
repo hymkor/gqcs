@@ -4,6 +4,7 @@ go 1.20
 
 require (
 	github.com/hymkor/sqlbless v0.20.0
+	github.com/mattn/go-colorable v0.1.14
 	github.com/nyaosorg/go-box/v2 v2.2.1
 )
 
@@ -20,7 +21,6 @@ require (
 	github.com/hymkor/go-windows1x-virtualterminal v0.5.0 // indirect
 	github.com/hymkor/sxencode-go v0.3.0 // indirect
 	github.com/lib/pq v1.10.9 // indirect
-	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.17 // indirect
 	github.com/mattn/go-tty v0.0.7 // indirect
