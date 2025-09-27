@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"flag"
 	"fmt"
+	"io"
 	"os"
 	"strings"
 
@@ -135,9 +136,12 @@ func mains(args []string) (lastErr error) {
 				}
 			}
 			if err != nil {
-				fmt.Fprintln(terminal, err.Error())
-				fmt.Fprintln(dbg, err.Error())
+				w := io.MultiWriter(terminal, dbg)
+				fmt.Fprintln(w, err.Error())
 				err = fmt.Errorf("%s\n%w", sql, err)
+				for i, v := range args {
+					fmt.Fprintf(w, "(%d) %#v\n", i+1, v)
+				}
 			}
 			return result, err
 		},
