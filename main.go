@@ -160,7 +160,7 @@ func mains(args []string) (lastErr error) {
 			fmt.Fprintln(terminal, "Transaction rolled back.")
 			fmt.Fprintln(dbg, "Transaction rolled back.")
 			tx.Rollback()
-			return err
+			continue
 		}
 		if err := tx.Commit(); err != nil {
 			return err
