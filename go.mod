@@ -3,7 +3,7 @@ module github.com/hymkor/gqcs
 go 1.20
 
 require (
-	github.com/hymkor/sqlbless v0.21.0
+	github.com/hymkor/sqlbless v0.23.0
 	github.com/mattn/go-colorable v0.1.14
 	github.com/nyaosorg/go-box/v2 v2.2.1
 )
@@ -16,8 +16,8 @@ require (
 	github.com/golang-sql/civil v0.0.0-20220223132316-b832511892a9 // indirect
 	github.com/golang-sql/sqlexp v0.1.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
-	github.com/hymkor/csvi v1.14.0 // indirect
-	github.com/hymkor/go-cursorposition v0.0.3 // indirect
+	github.com/hymkor/csvi v1.15.1-0.20251013133832-d5027b6da6b6 // indirect
+	github.com/hymkor/go-cursorposition v0.0.4 // indirect
 	github.com/hymkor/go-windows1x-virtualterminal v0.5.0 // indirect
 	github.com/hymkor/sxencode-go v0.3.0 // indirect
 	github.com/lib/pq v1.10.9 // indirect
