@@ -3,11 +3,13 @@ package main
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"flag"
 	"fmt"
 	"io"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/mattn/go-colorable"
 
@@ -81,6 +83,22 @@ func listTable(ctx context.Context, d *dialect.Entry, conn *sql.DB) ([]string, e
 	return tables, nil
 }
 
+func logging(w io.Writer, sqlStr string, args []any) {
+	fmt.Fprintf(w, "\n### %s ###\n\n%s\n\n",
+		time.Now().Format("2006-01-02 15:04:05"),
+		sqlStr)
+	for i, v := range args {
+		if n, ok := v.(sql.NamedArg); ok {
+			fmt.Fprintf(w, "(%s) %#v ", n.Name, n.Value)
+		} else {
+			fmt.Fprintf(w, "(%d) %#v ", i+1, v)
+		}
+	}
+	if len(args) > 0 {
+		fmt.Fprintln(w)
+	}
+}
+
 func mains(args []string) (lastErr error) {
 	disabler := colorable.EnableColorsStdout(nil)
 	defer disabler()
@@ -140,25 +158,22 @@ func mains(args []string) (lastErr error) {
 					return nil, fmt.Errorf("conn.BeginTx: %w", err)
 				}
 			}
-			fmt.Fprintln(dbg, sql)
+			logging(dbg, sql, args)
 			result, err := tx.ExecContext(ctx, sql, args...)
 			if err == nil {
 				var count int64
 				if count, err = result.RowsAffected(); err == nil {
 					if count < 1 {
-						err = fmt.Errorf("no affected rows:\n%s", sql)
+						err = errors.New("no affected rows")
 					} else if count > 1 {
-						err = fmt.Errorf("too many affected rows(%d):\n%s", count, sql)
+						err = fmt.Errorf("too many affected rows(%d)", count)
 					}
 				}
 			}
 			if err != nil {
-				w := io.MultiWriter(terminal, dbg)
-				fmt.Fprintln(w, err.Error())
-				err = fmt.Errorf("%s\n%w", sql, err)
-				for i, v := range args {
-					fmt.Fprintf(w, "(%d) %#v\n", i+1, v)
-				}
+				logging(terminal, sql, args)
+				fmt.Fprintf(terminal, "\n\a%s\n\n", err.Error())
+				fmt.Fprintf(dbg, "\n%s\n\n", err.Error())
 			}
 			return result, err
 		},
