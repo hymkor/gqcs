@@ -1,3 +1,7 @@
+v0.1.0
+======
+Oct 14, 2025
+
 - Update based SQL-Bless to v0.23.0
     - Unified the exit operation to the `ESC` key
         - `ESC` + `y`: Apply changes and exit
