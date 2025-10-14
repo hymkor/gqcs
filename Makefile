@@ -42,7 +42,7 @@ manifest:
 	make-scoop-manifest *-windows-*.zip > $(NAME).json
 
 release:
-	goawk -f latest-notes.awk release_note*.md | gh release create -d --notes-file - -t $(VERSION) $(VERSION) $(wildcard $(NAME)-$(VERSION)-*.zip)
+	pwsh latest-notes.awk | gh release create -d --notes-file - -t $(VERSION) $(VERSION) $(wildcard $(NAME)-$(VERSION)-*.zip)
 
 docs:
 	minipage README.md > "docs/index.html"
