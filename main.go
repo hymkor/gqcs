@@ -13,6 +13,8 @@ import (
 
 	"github.com/nyaosorg/go-box/v2"
 
+	"github.com/hymkor/csvi"
+
 	"github.com/hymkor/sqlbless/dialect"
 	_ "github.com/hymkor/sqlbless/dialect/mysql"
 	_ "github.com/hymkor/sqlbless/dialect/oracle"
@@ -22,7 +24,12 @@ import (
 	"github.com/hymkor/sqlbless/spread"
 )
 
-var flagDebugLog = flag.String("D", os.DevNull, "file to write debug logs to")
+var (
+	flagDebugLog = flag.String("D", os.DevNull, "file to write debug logs to")
+
+	flagReverseVideo = flag.Bool("rv", false, "rv,Enable reverse-video display (invert foreground and background colors")
+	flagDebugBell    = flag.Bool("debug-bell", false, "Enable Debug Bell")
+)
 
 func scanAllStrings(rows *sql.Rows, n int) ([]sql.NullString, error) {
 	refs := make([]any, n)
@@ -107,6 +114,16 @@ func mains(args []string) (lastErr error) {
 	if err != nil {
 		return err
 	}
+
+	if *flagReverseVideo || csvi.IsRevertVideoWithEnv() {
+		csvi.RevertColor()
+	} else if noColor := os.Getenv("NO_COLOR"); len(noColor) > 0 {
+		csvi.MonoChrome()
+	}
+	if *flagDebugBell {
+		csvi.EnableDebugBell(os.Stderr)
+	}
+
 	var tx *sql.Tx
 	editor := &spread.Editor{
 		Viewer: &spread.Viewer{
