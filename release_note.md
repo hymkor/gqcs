@@ -1,4 +1,5 @@
 - Changed log output to JSON format
+- Stopped enclosing table names in double quotes in SQL when not necessary.
 
 v0.1.0
 ======
