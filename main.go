@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"regexp"
 	"strings"
 
 	"golang.org/x/exp/slog"
@@ -94,6 +95,8 @@ func logSQL(lgr func(string, ...any), msg string, sqlStr string, args []any) {
 	}
 	lgr(msg, values...)
 }
+
+var rxNonQuote = regexp.MustCompile(`^\w+$`)
 
 func mains(args []string) (lastErr error) {
 	disabler := colorable.EnableColorsStdout(nil)
@@ -188,7 +191,11 @@ func mains(args []string) (lastErr error) {
 		if len(table) < 1 {
 			return nil
 		}
-		err = editor.Edit(ctx, `"`+table[0]+`"`, terminal)
+		targetTable := table[0]
+		if !rxNonQuote.MatchString(targetTable) {
+			targetTable = `"` + table[0] + `"`
+		}
+		err = editor.Edit(ctx, targetTable, terminal)
 		if tx == nil {
 			continue
 		}
