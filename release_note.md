@@ -1,3 +1,5 @@
+- Changed log output to JSON format
+
 v0.1.0
 ======
 Oct 14, 2025
