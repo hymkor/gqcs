@@ -9,7 +9,8 @@ import (
 	"io"
 	"os"
 	"strings"
-	"time"
+
+	"golang.org/x/exp/slog"
 
 	"github.com/mattn/go-colorable"
 
@@ -27,8 +28,7 @@ import (
 )
 
 var (
-	flagDebugLog = flag.String("D", os.DevNull, "file to write debug logs to")
-
+	flagDebugLog     = flag.String("D", os.DevNull, "file to write debug logs to")
 	flagReverseVideo = flag.Bool("rv", false, "rv,Enable reverse-video display (invert foreground and background colors")
 )
 
@@ -82,20 +82,17 @@ func listTable(ctx context.Context, d *dialect.Entry, conn *sql.DB) ([]string, e
 	return tables, nil
 }
 
-func logging(w io.Writer, sqlStr string, args []any) {
-	fmt.Fprintf(w, "\n### %s ###\n\n%s\n\n",
-		time.Now().Format("2006-01-02 15:04:05"),
-		sqlStr)
+func logSQL(lgr func(string, ...any), msg string, sqlStr string, args []any) {
+	values := make([]any, 0, len(args)*2+2)
+	values = append(values, "SQL", sqlStr)
 	for i, v := range args {
 		if n, ok := v.(sql.NamedArg); ok {
-			fmt.Fprintf(w, "(%s) %#v ", n.Name, n.Value)
+			values = append(values, n.Name, n.Value)
 		} else {
-			fmt.Fprintf(w, "(%d) %#v ", i+1, v)
+			values = append(values, fmt.Sprintf("(%d)", i+1), v)
 		}
 	}
-	if len(args) > 0 {
-		fmt.Fprintln(w)
-	}
+	lgr(msg, values...)
 }
 
 func mains(args []string) (lastErr error) {
@@ -103,13 +100,21 @@ func mains(args []string) (lastErr error) {
 	defer disabler()
 	terminal := colorable.NewColorableStdout()
 
-	dbg, err := os.Create(*flagDebugLog)
-	if err != nil {
-		return err
+	var writer4log io.Writer = os.Stderr
+	if *flagDebugLog != os.DevNull {
+		dbg, err := os.Create(*flagDebugLog)
+		if err != nil {
+			return err
+		}
+		defer dbg.Close()
+
+		writer4log = io.MultiWriter(os.Stderr, dbg)
 	}
+	slog.SetDefault(slog.New(slog.NewJSONHandler(writer4log, nil)))
+
 	defer func() {
 		if lastErr != nil {
-			fmt.Fprintln(dbg, lastErr.Error())
+			slog.Error(lastErr.Error())
 		}
 	}()
 	d, err := dialect.ReadDBInfoFromArgs(args)
@@ -154,7 +159,6 @@ func mains(args []string) (lastErr error) {
 					return nil, fmt.Errorf("conn.BeginTx: %w", err)
 				}
 			}
-			logging(dbg, sql, args)
 			result, err := tx.ExecContext(ctx, sql, args...)
 			if err == nil {
 				var count int64
@@ -167,9 +171,9 @@ func mains(args []string) (lastErr error) {
 				}
 			}
 			if err != nil {
-				logging(terminal, sql, args)
-				fmt.Fprintf(terminal, "\n\a%s\n\n", err.Error())
-				fmt.Fprintf(dbg, "\n%s\n\n", err.Error())
+				logSQL(slog.Error, err.Error(), sql, args)
+			} else {
+				logSQL(slog.Info, "Done", sql, args)
 			}
 			return result, err
 		},
@@ -189,8 +193,7 @@ func mains(args []string) (lastErr error) {
 			continue
 		}
 		if err != nil {
-			fmt.Fprintln(terminal, "Transaction rolled back.")
-			fmt.Fprintln(dbg, "Transaction rolled back.")
+			slog.Error("Transaction rolled back.", "Error", err.Error())
 			tx.Rollback()
 			continue
 		}
