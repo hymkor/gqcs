@@ -31,7 +31,21 @@ import (
 var (
 	flagDebugLog     = flag.String("D", os.DevNull, "file to write debug logs to")
 	flagReverseVideo = flag.Bool("rv", false, "rv,Enable reverse-video display (invert foreground and background colors")
+
+	ErrNoAffectedRows = errors.New("no affected rows")
 )
+
+type ErrTooManyAffectedRows int
+
+func (e ErrTooManyAffectedRows) Error() string {
+	return fmt.Sprintf("too many affected rows(%d)", int(e))
+}
+
+type ErrColumnNotFound string
+
+func (e ErrColumnNotFound) Error() string {
+	return fmt.Sprintf("%s: column not found", string(e))
+}
 
 func scanAllStrings(rows *sql.Rows, n int) ([]sql.NullString, error) {
 	refs := make([]any, n)
@@ -68,7 +82,7 @@ func listTable(ctx context.Context, d *dialect.Entry, conn *sql.DB) ([]string, e
 
 	tableIndex := findColumn(d.TableField, columns)
 	if tableIndex < 0 {
-		return nil, fmt.Errorf("Application error: table field '%s' not found", d.TableField)
+		return nil, fmt.Errorf("Application error: %w", d.TableField, ErrColumnNotFound(d.TableField))
 	}
 	var tables []string
 	for rows.Next() {
@@ -167,9 +181,9 @@ func mains(args []string) (lastErr error) {
 				var count int64
 				if count, err = result.RowsAffected(); err == nil {
 					if count < 1 {
-						err = errors.New("no affected rows")
+						err = ErrNoAffectedRows
 					} else if count > 1 {
-						err = fmt.Errorf("too many affected rows(%d)", count)
+						err = ErrTooManyAffectedRows(count)
 					}
 				}
 			}
