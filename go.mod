@@ -26,7 +26,7 @@ require (
 	github.com/mattn/go-tty v0.0.7 // indirect
 	github.com/microsoft/go-mssqldb v1.7.2 // indirect
 	github.com/ncruces/go-strftime v0.1.9 // indirect
-	github.com/nyaosorg/go-readline-ny v1.10.0 // indirect
+	github.com/nyaosorg/go-readline-ny v1.11.0 // indirect
 	github.com/nyaosorg/go-readline-skk v0.6.0 // indirect
 	github.com/nyaosorg/go-windows-mbcs v0.4.4 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
