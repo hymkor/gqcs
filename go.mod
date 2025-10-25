@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/hymkor/csvi v1.15.1
-	github.com/hymkor/sqlbless v0.23.0
+	github.com/hymkor/sqlbless v0.24.0
 	github.com/mattn/go-colorable v0.1.14
 	github.com/nyaosorg/go-box/v2 v2.2.1
 	golang.org/x/exp v0.0.0-20240904232852-e7e105dedf7e
