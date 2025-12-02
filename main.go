@@ -15,7 +15,7 @@ import (
 
 	"github.com/mattn/go-colorable"
 
-	"github.com/nyaosorg/go-box/v2"
+	"github.com/nyaosorg/go-box/v3"
 
 	"github.com/hymkor/csvi"
 
@@ -197,7 +197,7 @@ func mains(args []string) (lastErr error) {
 	}
 	for {
 		fmt.Fprintln(terminal, "Select a table:")
-		table, err := box.SelectStringContext(ctx, tables, false, terminal)
+		table, err := box.SelectString(tables, false, terminal)
 		fmt.Println()
 		if err != nil {
 			return err
