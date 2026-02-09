@@ -3,7 +3,7 @@ module github.com/hymkor/gqcs
 go 1.20
 
 require (
-	github.com/hymkor/csvi v1.21.1
+	github.com/hymkor/csvi v1.21.2
 	github.com/hymkor/sqlbless v0.27.3
 	github.com/mattn/go-colorable v0.1.14
 	github.com/nyaosorg/go-box/v3 v3.0.0
