@@ -15,7 +15,7 @@ import (
 
 	"github.com/mattn/go-colorable"
 
-	"github.com/nyaosorg/go-box/v2"
+	"github.com/nyaosorg/go-box/v3"
 
 	"github.com/hymkor/csvi"
 
@@ -69,7 +69,7 @@ func findColumn(target string, list []string) int {
 }
 
 func listTable(ctx context.Context, d *dialect.Entry, conn *sql.DB) ([]string, error) {
-	rows, err := conn.QueryContext(ctx, d.SqlForTab)
+	rows, err := conn.QueryContext(ctx, d.SQLForTables)
 	if err != nil {
 		return nil, err
 	}
@@ -80,9 +80,9 @@ func listTable(ctx context.Context, d *dialect.Entry, conn *sql.DB) ([]string, e
 		return nil, err
 	}
 
-	tableIndex := findColumn(d.TableField, columns)
+	tableIndex := findColumn(d.TableNameField, columns)
 	if tableIndex < 0 {
-		return nil, fmt.Errorf("Application error: %w", d.TableField, ErrColumnNotFound(d.TableField))
+		return nil, fmt.Errorf("Application error: %w", d.TableNameField, ErrColumnNotFound(d.TableNameField))
 	}
 	var tables []string
 	for rows.Next() {
@@ -197,7 +197,7 @@ func mains(args []string) (lastErr error) {
 	}
 	for {
 		fmt.Fprintln(terminal, "Select a table:")
-		table, err := box.SelectStringContext(ctx, tables, false, terminal)
+		table, err := box.SelectString(tables, false, terminal)
 		fmt.Println()
 		if err != nil {
 			return err
