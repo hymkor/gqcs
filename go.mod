@@ -6,14 +6,13 @@ require (
 	github.com/hymkor/csvi v1.21.2
 	github.com/hymkor/sqlbless v0.27.3
 	github.com/mattn/go-colorable v0.1.14
-	github.com/nyaosorg/go-box/v3 v3.0.0
+	github.com/nyaosorg/go-box/v3 v3.1.1
 	golang.org/x/exp v0.0.0-20240904232852-e7e105dedf7e
 )
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
-	github.com/clipperhouse/stringish v0.1.1 // indirect
-	github.com/clipperhouse/uax29/v2 v2.3.0 // indirect
+	github.com/clipperhouse/uax29/v2 v2.6.0 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/glebarez/go-sqlite v1.22.0 // indirect
 	github.com/go-sql-driver/mysql v1.8.1 // indirect
