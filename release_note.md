@@ -3,9 +3,9 @@ Release notes
 
 - Changed log output to JSON format
 - Stopped enclosing table names in double quotes in SQL when not necessary.
-- Update libraries (#2)
-    - csvi            from v1.15.1 to v1.21.2
-    - sqlbless        from v0.23.0 to v0.27.3
+- Update libraries (#2,#3,#4)
+    - csvi            from v1.15.1 to v1.22.0
+    - sqlbless        from v0.23.0 to v0.27.4
     - go-readline-ny  from v1.9.1  to v1.14.1
     - go-box          from v2.2.1  to v3.1.1
     - go-readline-skk from v0.6.0  to v0.6.1

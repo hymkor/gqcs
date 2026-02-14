@@ -3,9 +3,9 @@
 
 - ログ出力を JSON 形式とした
 - 必要でない時はSQL上のテーブル名を二重引用符で囲まないようにした
-- ライブラリを更新 (#2)
-    - csvi            from v1.15.1 to v1.21.2
-    - sqlbless        from v0.23.0 to v0.27.3
+- ライブラリを更新 (#2,#3,#4)
+    - csvi            from v1.15.1 to v1.22.0
+    - sqlbless        from v0.23.0 to v0.27.4
     - go-readline-ny  from v1.9.1  to v1.14.1
     - go-box          from v2.2.1  to v3.1.1
     - go-readline-skk from v0.6.0  to v0.6.1
