@@ -23,10 +23,10 @@ github.com/golang-sql/sqlexp v0.1.0/go.mod h1:J4ad9Vo8ZCWQ2GMrC4UCQy1JpCbwU9m3EO
 github.com/google/pprof v0.0.0-20240409012703-83162a5b38cd h1:gbpYu9NMq8jhDVbvlGkMFWCjLFlqqEZjEmObmhUy6Vo=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
 github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
-github.com/hymkor/csvi v1.21.2 h1:70IDMB+J41z5QFaDycennTHGbFr2DxFTCmaiAmwiYkg=
-github.com/hymkor/csvi v1.21.2/go.mod h1:zm4EcSzlGiiCtPWq77a+L3Q5IpJufIEX0q4iIGKXZhs=
-github.com/hymkor/sqlbless v0.27.3 h1:XgqEj9uvb/CKX/XVyooITaGuRJWCLr4nNQj7UIOLzDs=
-github.com/hymkor/sqlbless v0.27.3/go.mod h1:YFfJy9SWejbAPEQGPdObQh4Zp4W2ddKLHlElOs2Hhkc=
+github.com/hymkor/csvi v1.22.0 h1:fvUDS81s5LReepPjSI+/PWVmWlnxAYyL6SUILOOooO8=
+github.com/hymkor/csvi v1.22.0/go.mod h1:zm4EcSzlGiiCtPWq77a+L3Q5IpJufIEX0q4iIGKXZhs=
+github.com/hymkor/sqlbless v0.27.4 h1:iQftVoBAfOWggSz28y1DGZv9sv5uG0dr1dtL131cQhE=
+github.com/hymkor/sqlbless v0.27.4/go.mod h1:mZ0L3uWUCY9Tc+ManMxGIZQsaPxq/oCAy8I2WqC0nlo=
 github.com/hymkor/struct2flag v0.0.4 h1:gF/RACxQznCXnithZdX3xvZqGeOUVXIlM2CCg2Z8r9o=
 github.com/hymkor/sxencode-go v0.3.0 h1:IfsgPuLLJptw3fczZKLSZjtT4cJ0qfPnFMEWnaG9yuU=
 github.com/hymkor/sxencode-go v0.3.0/go.mod h1:zdsmILW2sJbtydTaB7lwTqnl63XCTxRjTqDDZBA5hV0=
