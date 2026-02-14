@@ -39,7 +39,7 @@ clean:
 	$(DEL) *.zip $(NAME)$(EXE)
 
 manifest:
-	make-scoop-manifest *-windows-*.zip > $(NAME).json
+	$(GO) run github.com/hymkor/make-scoop-manifest@latest *-windows-*.zip > $(NAME).json
 
 release:
 	pwsh -Command "latest-notes.ps1" | gh release create -d --notes-file - -t $(VERSION) $(VERSION) $(wildcard $(NAME)-$(VERSION)-*.zip)
