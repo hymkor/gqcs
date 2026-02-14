@@ -2,6 +2,12 @@
 
 # GQuaccccccesS
 
+<!-- stdout:go run github.com/hymkor/example-into-readme/cmd/badges@latest -->
+[![License](https://img.shields.io/badge/License-MIT-red)](https://github.com/hymkor/gqcs/blob/master/LICENSE)
+[![Go Reference](https://pkg.go.dev/badge/github.com/hymkor/gqcs.svg)](https://pkg.go.dev/github.com/hymkor/gqcs)
+[![GitHub](https://img.shields.io/badge/github-repo-blue?logo=github)](https://github.com/hymkor/gqcs)
+<!-- -->
+
 - A spreadsheet-like editor for your database, right in the terminal.
 - A standalone tool based on [SQL-Bless]&#x2019;s `edit` command.
 - Unlike SQL-Bless, GQuaccccccesS applies all edits automatically when you finish editing.
