@@ -47,4 +47,7 @@ release:
 docs:
 	go run github.com/hymkor/minipage@latest README.md > "docs/index.html"
 
+readme:
+	go run github.com/hymkor/example-into-readme@latest
+
 .PHONY: all test dist _dist clean manifest release docs
