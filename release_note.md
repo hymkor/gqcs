@@ -1,6 +1,10 @@
 Release notes
 =============
 
+v0.2.0
+------
+Feb 14, 2026
+
 - Changed log output to JSON format
 - Stopped enclosing table names in double quotes in SQL when not necessary.
 - Update libraries (#2,#3,#4)
