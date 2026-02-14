@@ -42,7 +42,7 @@ manifest:
 	$(GO) run github.com/hymkor/make-scoop-manifest@latest *-windows-*.zip > $(NAME).json
 
 release:
-	pwsh -Command "latest-notes.ps1" | gh release create -d --notes-file - -t $(VERSION) $(VERSION) $(wildcard $(NAME)-$(VERSION)-*.zip)
+	$(GO) run github.com/hymkor/latest-notes@latest | gh release create -d --notes-file - -t $(VERSION) $(VERSION) $(wildcard $(NAME)-$(VERSION)-*.zip)
 
 docs:
 	minipage README.md > "docs/index.html"
